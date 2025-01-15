@@ -10,9 +10,12 @@ from conf import *
 today = datetime.datetime.now().strftime('%d.%m.%Y')
 rez = pd.read_excel('Rezult.xlsx')
 
+
 # open SAP GUI
 sap_logopn = r"C:\Program Files (x86)\SAP\FrontEnd\SAPgui\saplogon.exe"
 subprocess.Popen(sap_logopn)
+time.sleep(1)
+pyautogui.press('enter')
 time.sleep(10)
 pyautogui.hotkey('win', 'up')
 time.sleep(1)
@@ -74,6 +77,7 @@ for i in range(len(SC)):
     pyautogui.press('esc')
     time.sleep(1)
     prov = pyperclip.paste()
+    rez.loc[i, 'Время выгрузки данных'] = time.strftime("%H:%M:%S", time.localtime())
     if prov == '':
         continue
     else:
@@ -98,16 +102,15 @@ for i in range(len(SC)):
         pyautogui.click(1200, 185)
         time.sleep(1)
         pyautogui.hotkey('ctrl', 'c')
-        rez.loc[i, 'Не упакованные шт.'] = pyperclip.paste()
+        rez.loc[i, 'Не упакованные шт.'] = float(pyperclip.paste().replace('.', "").replace(',', "."))
         pyautogui.click(1250, 185)
         time.sleep(1)
         pyautogui.hotkey('ctrl', 'c')
-        rez.loc[i, 'Не собранные заказы'] = pyperclip.paste()
+        rez.loc[i, 'Не собранные заказы'] = float(pyperclip.paste().replace('.', "").replace(',', "."))
         pyautogui.click(1400, 185)
         time.sleep(1)
         pyautogui.hotkey('ctrl', 'c')
-        rez.loc[i, 'Не собранных штук'] = pyperclip.paste()
-        rez.loc[i, 'Время выгрузки данных'] = time.strftime("%H:%M:%S", time.localtime())
+        rez.loc[i, 'Не собранных штук'] = float(pyperclip.paste().replace('.', "").replace(',', "."))
         pyautogui.press('esc')
         time.sleep(1)
         pyautogui.press('esc')
