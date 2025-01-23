@@ -6,10 +6,12 @@ import datetime
 import pandas as pd
 from pandas import ExcelWriter
 from conf import *
+import py_win_keyboard_layout
+
+py_win_keyboard_layout.change_foreground_window_keyboard_layout(0x04090409)
 
 today = datetime.datetime.now().strftime('%d.%m.%Y')
 rez = pd.read_excel('Rezult.xlsx')
-
 
 # open SAP GUI
 sap_logopn = r"C:\Program Files (x86)\SAP\FrontEnd\SAPgui\saplogon.exe"
@@ -102,15 +104,15 @@ for i in range(len(SC)):
         pyautogui.click(1200, 185)
         time.sleep(1)
         pyautogui.hotkey('ctrl', 'c')
-        rez.loc[i, 'Не упакованные шт.'] = float(pyperclip.paste().replace('.', "").replace(',', "."))
+        rez.loc[i, 'Не упакованные шт.'] = float(pyperclip.paste().replace('.', "").replace(' ', "").replace(',', "."))
         pyautogui.click(1250, 185)
         time.sleep(1)
         pyautogui.hotkey('ctrl', 'c')
-        rez.loc[i, 'Не собранные заказы'] = float(pyperclip.paste().replace('.', "").replace(',', "."))
+        rez.loc[i, 'Не собранные заказы'] = float(pyperclip.paste().replace('.', "").replace(' ', "").replace(',', "."))
         pyautogui.click(1400, 185)
         time.sleep(1)
         pyautogui.hotkey('ctrl', 'c')
-        rez.loc[i, 'Не собранных штук'] = float(pyperclip.paste().replace('.', "").replace(',', "."))
+        rez.loc[i, 'Не собранных штук'] = float(pyperclip.paste().replace('.', "").replace(' ', "").replace(',', "."))
         pyautogui.press('esc')
         time.sleep(1)
         pyautogui.press('esc')
